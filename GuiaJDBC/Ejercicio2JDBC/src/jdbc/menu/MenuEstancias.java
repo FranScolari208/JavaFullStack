@@ -114,8 +114,6 @@ public class MenuEstancias {
 
     private void ingresarEstancia() throws MiExcepcion{
         try {
-            
-
             Integer validarCliente = 2;
             Integer validarCasa = 3;
             String nombreCliente;
@@ -184,8 +182,7 @@ public class MenuEstancias {
             Instant fechaSalida = instant.plus(dias, ChronoUnit.DAYS);
             System.out.println("FECHA ENTRADA:::> "+fechaEntrada);
             System.out.println("DIASSSS::> "+dias);
-            System.out.println("FECHA SALIDAA::>"+fechaSalida);
-            
+            System.out.println("FECHA SALIDAA::>"+fechaSalida);            
 
         }catch (MiExcepcion e) {
             e.printStackTrace();

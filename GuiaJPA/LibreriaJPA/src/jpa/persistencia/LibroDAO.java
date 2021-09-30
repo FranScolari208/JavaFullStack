@@ -86,4 +86,17 @@ public class LibroDAO {
             throw new MiExcepcion("ERROR AL ENCONTRAR LIBROS");
         }
     }
+    
+    public List<Libro> buscarLibrosPorAutor(String nombre) throws MiExcepcion{
+        try{
+            List<Libro> libros = em.createQuery("SELECT e FROM Libro e JOIN e.autor b WHERE b.nombre LIKE CONCAT('%', :nombreAutor, '%')", Libro.class)
+                    .setParameter("nombreAutor", nombre)
+                    .getResultList();
+            return libros;
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new MiExcepcion("ERROR AL ENCONTRAR LIBROS");
+        }
+    }
 }

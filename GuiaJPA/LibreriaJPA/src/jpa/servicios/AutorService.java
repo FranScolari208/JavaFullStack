@@ -49,22 +49,14 @@ public class AutorService {
                 .substring(0, 13);
     }
     
-    public Autor buscarAutorPorNombre(String nombreAutor) throws MiExcepcion{
+    public List<Autor> buscarAutorPorNombre(String nombreAutor) throws MiExcepcion{
         List<Autor> autores = new ArrayList();
-        Autor autor;
         try{
            autores = autorDAO.buscarAutorPorSuNombre(nombreAutor);
-           
            if(autores.isEmpty()){
-               return null;
+               return autores;
            }else{
                imprimirAutores(autores);
-               System.out.println("INGRESE EL ID DEL AUTOR");
-               Long id = leer.nextLong();
-               autor = buscarAutorPorID(id);
-               if(autor == null){
-                  throw new Exception("ERROR EN INTRODUCIR AL AUTOR LUEGO DE BUSCARLO POR CODIGO");
-               }
            }
            
         }catch (Exception e) {
@@ -72,7 +64,7 @@ public class AutorService {
             throw new MiExcepcion("ERROR EN INTRODUCIR AL AUTOR");
  
         }    
-        return autor;
+        return autores;
         
     }
     

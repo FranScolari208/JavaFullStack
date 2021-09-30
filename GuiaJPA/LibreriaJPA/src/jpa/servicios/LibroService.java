@@ -21,7 +21,7 @@ public class LibroService {
 
     }
     
-    public void insertarLibro() throws MiExcepcion, Exception {
+    public void insertarLibro() throws MiExcepcion, MiExcepcion{
         EditorialService editorialService = new EditorialService();
         AutorService autorService = new AutorService();
         
@@ -77,8 +77,9 @@ public class LibroService {
             //Autor
             System.out.println("INGRESE EL NOMBRE DEL AUTOR DEL LIBRO");
             String nombreAutor = leer.next();
-            Autor autor = autorService.buscarAutorPorNombre(nombreAutor);
-            if(autor == null){
+            List<Autor> autores = autorService.buscarAutorPorNombre(nombreAutor);
+            Autor autor;
+            if(autores.isEmpty()){
                System.out.println("NO HAY AUTORES CON ESE NOMBRE");
                System.out.println("DESEA INGRESAR UN AUTOR NUEVO? S/N");
                Character opcion = leer.next().charAt(0);
@@ -87,8 +88,16 @@ public class LibroService {
                 
             }else{
                    throw new Exception("EL AUTOR ES OBLIGATORIO");
-            }
-
+                 }
+            }else{
+               System.out.println("INGRESE EL ID DEL AUTOR");
+               Long id = leer.nextLong();
+               autor = autorService.buscarAutorPorID(id);
+               if(autor == null){
+                  throw new Exception("ERROR EN INTRODUCIR AL AUTOR LUEGO DE BUSCARLO POR CODIGO");
+               }
+           }
+            
             Libro libro = new Libro();
             
             libro.setIsbn(isbn);
@@ -102,7 +111,7 @@ public class LibroService {
             libro.setAlta(true);
 
             libroDAO.guardarLibro(libro);
-            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             throw new MiExcepcion("ERROR EN INTRODUCIR EL LIBRO");
@@ -180,6 +189,16 @@ public class LibroService {
         }catch (Exception e) {
             e.printStackTrace();
             throw new MiExcepcion("ERROR EN OBTENER EL LIBRO");
+        }
+    }
+    
+    public List<Libro> obtenerLibroPorNombreDeAutor(String nombre)throws MiExcepcion{
+        try{
+        List<Libro> libros = libroDAO.buscarLibrosPorAutor(nombre);
+        return libros;
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new MiExcepcion("ERROR EN OBTENER LOS LIBROS");
         }
     }
 }

@@ -1,7 +1,6 @@
 
 package jpa.servicios;
 
-import static java.lang.Character.toUpperCase;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -105,9 +104,11 @@ public class EditorialService {
                 for (int i = 0; i < editoriales.size(); i++) {                
                     System.out.printf("%-25d%-30s%-25b\n", editoriales.get(i).getId(), editoriales.get(i).getNombre(), editoriales.get(i).getAlta());                 
                 }
+                
+                System.out.println("********************************************************************");
+                System.out.println("********************************************************************");
             }
-                    System.out.println("********************************************************************");
-                    System.out.println("********************************************************************");
+                    
                     System.out.println(" ");
         }catch (Exception e) {
             e.printStackTrace();
@@ -138,6 +139,61 @@ public class EditorialService {
         }catch (Exception e) {
             e.printStackTrace();
             throw new MiExcepcion("ERROR EN OBTENER EDITORIALES");
+        }
+    }
+    
+    public void modificarEditorial()throws MiExcepcion{
+        try{
+        List<Editorial> editoriales = obtenerEditoriales();
+        imprimirEditoriales(editoriales);
+        System.out.println("INTRODUZCA ID DE LA EDITORIAL A MODIFICAR");
+        Integer id = leer.nextInt();
+        Long idEditorial = id.longValue();
+        Editorial editorial = editorialDAO.buscarEditorialPorID(idEditorial);
+        if(editorial== null){
+            throw new MiExcepcion("NO HAY EDITORIAL CON ESE ID");
+        }else{
+            System.out.println("INGRESE EL NUEVO NOMBRE DE LA EDITORIAL");
+            String nuevoNombre = leer.next();                       
+            editorial.setNombre(nuevoNombre);
+            editorialDAO.modificarEditorial(editorial);
+        }
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new MiExcepcion("ERROR AL MODIFICAR EDITORIAL");
+        }
+    }
+    
+    public List<Editorial> buscarEditoriales(String nombreEditorial)throws MiExcepcion{
+        try{
+        List<Editorial> editoriales = editorialDAO.buscarEditorialPorNombreDeEditorial(nombreEditorial);
+           
+        return editoriales;   
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new MiExcepcion("ERROR EN BUSCAR LA EDITORIAL"); 
+        }            
+        
+    }
+    
+    public void eliminarEditorial()throws MiExcepcion{
+        try{
+            Editorial editorial;
+            List<Editorial> editoriales = obtenerEditoriales();
+            imprimirEditoriales(editoriales);
+            System.out.println("INTRUDUZCA ID DE EDITORIAL A ELIMINAR");
+            Long id = leer.nextLong();
+            editorial = editorialDAO.buscarEditorialPorID(id);
+            if(editorial==null){
+                System.out.println("NO EXISTE EDITORIAL CON ESE ID");
+            }else{
+                editorial.setAlta(false);
+                editorialDAO.modificarEditorial(editorial);
+                
+            }
+            
+        }catch (Exception e) {
+            throw new MiExcepcion("ERROR EN BUSCAR LA EDITORIAL"); 
         }
     }
 }

@@ -1,5 +1,6 @@
 package jpa.persistencia;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -68,7 +69,12 @@ public class AutorDAO {
         Autor autor;
         try {
             autor = em.find(Autor.class, id);
-            return autor;
+            if(autor == null){
+                throw new MiExcepcion("NO HAY AUTORES CON ESE ID");
+            }else{
+               return autor; 
+            }
+            
         } catch (Exception e) {
             throw new MiExcepcion("ERROR AL BUSCAR AUTOR POR ISBN");
         }
@@ -86,4 +92,7 @@ public class AutorDAO {
             throw new MiExcepcion("ERROR AL ENCONTRAR EDITORIALES");
         }
     }
+        
 }
+
+

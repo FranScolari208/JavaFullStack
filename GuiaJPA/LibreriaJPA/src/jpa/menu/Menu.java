@@ -96,7 +96,7 @@ public class Menu {
                         autorService.crearAutor();
                     break;
                     case 2:
-
+                        autorService.modificarNombreAutor();
                     break;
                     case 3:
                         List<Autor> autores12 = autorService.obtenerAutores();
@@ -109,7 +109,7 @@ public class Menu {
                         autorService.buscarAutorPorNombre(nombre);
                         break;
                     case 5:
-
+                        autorService.eliminarAutor();
                         break;
                     case 6:
                         System.out.println("************************************************************");
@@ -158,7 +158,7 @@ public class Menu {
                         libroService.insertarLibro();
                         break;
                     case 2:
-                        
+                        libroService.modificarLibro();
                         break;
                     case 3:
                         List<Libro> libros13 = libroService.obtenerLibros();
@@ -196,7 +196,7 @@ public class Menu {
                         }
                         break;
                     case 8:
-                        
+                        libroService.eliminarLibro();
                         break;    
                     case 9:
                         System.out.println("************************************************************");
@@ -242,17 +242,20 @@ public class Menu {
                         editorialService.crearEditorial();
                     break;
                     case 2:
-                        
+                        editorialService.modificarEditorial();
                     break;
                     case 3:
                         List<Editorial> editoriales = editorialService.obtenerEditoriales();
                         editorialService.imprimirEditoriales(editoriales);
                         break;
                     case 4:
-
+                        System.out.println("INGRESE EL NOMBRE DE LA EDITORIAL A BUSCAR");
+                        String nombreEditorial = leer.next();
+                        List<Editorial> editoriales2 = editorialService.buscarEditoriales(nombreEditorial);
+                        editorialService.imprimirEditoriales(editoriales2);
                         break;
                     case 5:
-                        
+                        editorialService.eliminarEditorial();
                         break;
                     case 6:
                         System.out.println("************************************************************");

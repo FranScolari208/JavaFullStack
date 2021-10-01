@@ -201,5 +201,107 @@ public class LibroService {
             throw new MiExcepcion("ERROR EN OBTENER LOS LIBROS");
         }
     }
+    
+    public void modificarLibro()throws MiExcepcion{
+        try{
+        System.out.println("************************************************************");
+        System.out.println("***************      ¡MODIFICAR LIBRO!      ****************");
+        System.out.println("************************************************************");
+        System.out.println("************       SELECCIONE UNA OPCION       *************");
+        System.out.println("***         (1)      MODIFICAR TITULO                    ***");
+        System.out.println("***         (2)     MODIFICAR EJEMPLARES                 ***");
+        System.out.println("***         (3) MODIFICAR EJEMPLARES PRESTADOS           ***");
+        System.out.println("***         (4)        MODIFICAR AÑO                     ***");
+        System.out.println("************************************************************");
+        System.out.println("************************************************************");
+        Integer respuesta = leer.nextInt();
+        
+        List<Libro> libros = obtenerLibros();
+        imprimirLibros(libros);
+        System.out.println("INTRODUZCA ID DEL LIBRO A MODIFICAR");
+        Integer id = leer.nextInt();
+        Long idLibro = id.longValue();
+        Libro libro = libroDAO.buscarLibroPorIsbn(idLibro);
+        if(libro== null){
+            throw new MiExcepcion("NO HAY LIBRO CON ESE ISBN");
+        }else{
+            hacerModificacionDelLibro(idLibro, respuesta);
+        }
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new MiExcepcion("ERROR EN MODIFICAR EL LIBROS");
+        }
+    }
+    
+    public void hacerModificacionDelLibro(Long idLibro, Integer respuesta)throws MiExcepcion{
+        try{
+        Libro libro = libroDAO.buscarLibroPorIsbn(idLibro);
+        switch(respuesta){
+            case 1:
+                System.out.println("INGRESE EL NUEVO TITULO DEL LIBRO QUE DESEE MODIFICAR");
+                String nuevoTitulo = leer.next();                       
+                libro.setTitulo(nuevoTitulo);
+                libroDAO.modificarLibro(libro);
+                break;
+            case 2:
+                System.out.println("INGRESE LA NUEVA CANTIDAD DE EJEMPLARES");
+                Integer nuevosEjemplares = leer.nextInt();
+                Integer nuevosRestantes = nuevosEjemplares - libro.getEjemplaresPrestados();
+                if(nuevosRestantes < 0){
+                    throw new MiExcepcion("LA CANTIDAD DE EJEMPLARES NO PUEDE SER MENOR A LA CANTIDAD PRESTADA");
+                }else{
+                    libro.setEjemplares(nuevosEjemplares);
+                    libro.setEjemplaresRestantes(nuevosRestantes);
+                    libroDAO.modificarLibro(libro);   
+                }                     
+                break;
+            case 3:
+                System.out.println("INGRESE LA NUEVA CANTIDAD DE EJEMPLARES PRESTADOS");
+                Integer nuevosPrestados = leer.nextInt();
+                Integer restantes = libro.getEjemplares() - nuevosPrestados;
+                if(restantes < 0){
+                    throw new MiExcepcion("LA CANTIDAD DE PRESTADOS NO PUEDE SER MAYOR A LA CANTIDAD DE EJEMPLARES");
+                }else{
+                    libro.setEjemplaresPrestados(nuevosPrestados);
+                    libro.setEjemplaresRestantes(restantes);
+                    libroDAO.modificarLibro(libro);   
+                }                  
+                break;
+            case 4:
+                System.out.println("INGRESE EL NUEVO AÑO DEL LIBRO QUE DESEE MODIFICAR");
+                Integer nuevoAno = leer.nextInt();                       
+                libro.setAnio(nuevoAno);
+                libroDAO.modificarLibro(libro);               
+                break;
+            default: System.out.println("************************************************************");
+                     System.out.println("******     LA OPCION SELECCIONADA NO ES VALIDA      ********");
+                     System.out.println("************************************************************");
+        }
+        }catch (Exception e){
+        e.printStackTrace();
+        throw new MiExcepcion("ERROR EN MODIFICAR EL LIBROS");
+        }
+    }
+    
+    public void eliminarLibro()throws MiExcepcion{
+        try{
+            Libro libro;
+            List<Libro> libros = obtenerLibros();
+            imprimirLibros(libros);
+            System.out.println("INTRUDUZCA ISBN DEL LIBRO A ELIMINAR");
+            Long id = leer.nextLong();
+            libro = libroDAO.buscarLibroPorIsbn(id);
+            if(libro==null){
+                System.out.println("NO EXISTE LIBRO CON ESE ISBN");
+            }else{
+                libro.setAlta(false);
+                libroDAO.modificarLibro(libro);
+                
+            }
+            
+        }catch (Exception e) {
+            throw new MiExcepcion("ERROR EN BUSCAR LA EDITORIAL"); 
+        }
+    }
 }
  

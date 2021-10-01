@@ -114,4 +114,48 @@ public class AutorService {
         return autor;
     }
     
+    
+    public void modificarNombreAutor() throws MiExcepcion{
+        try{
+        List<Autor> autores = obtenerAutores();
+        imprimirAutores(autores);
+        System.out.println("INTRODUZCA ID DE AUTOR A MODIFICAR");
+        Integer id = leer.nextInt();
+        Long idAutor = id.longValue();
+        Autor autor = autorDAO.buscarAutorPorIdDeAutor(idAutor);
+        if(autor== null){
+            throw new MiExcepcion("NO HAY AUTOR CON ESE ID");
+        }else{
+            System.out.println("INGRESE EL NUEVO NOMBRE DEL AUTOR");
+            String nuevoNombre = leer.next();                       
+            autor.setNombre(nuevoNombre);
+            autorDAO.modificarAutor(autor);
+        }
+        
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new MiExcepcion("ERROR AL MODIFICAR AL AUTOR");
+        }
+    }
+    
+    public void eliminarAutor()throws MiExcepcion{
+        try{
+            Autor autor;
+            List<Autor> autores = obtenerAutores();
+            imprimirAutores(autores);
+            System.out.println("INTRUDUZCA ID DEL AUTOR A ELIMINAR");
+            Long id = leer.nextLong();
+            autor = autorDAO.buscarAutorPorIdDeAutor(id);
+            if(autor==null){
+                System.out.println("NO EXISTE AUTOR CON ESE ID");
+            }else{
+                autor.setAlta(false);
+                autorDAO.modificarAutor(autor);
+                
+            }
+            
+        }catch (Exception e) {
+            throw new MiExcepcion("ERROR EN BUSCAR EL AUTOR"); 
+        }
+    }
 }

@@ -7,5 +7,7 @@ Curso intensivo de Java con la empresa G&L Group en el cual utilice los siguient
 - [x] MySQL
 - [x] Union de Java con SQL mediante JDBC
 - [x] Union de Java con SQL mediante JPA
+- [x] HTML
+- [x] CSS  
 - [x] Java Spring Boot
 - [x] Proyecto final grupal integrador de todos los temas vistos       

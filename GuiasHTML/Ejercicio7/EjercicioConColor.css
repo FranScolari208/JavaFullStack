@@ -1,16 +1,16 @@
-
-.ejercicio{
-    background-color:peru;
+.todo{
+    background-color:gold;
 }
+
 h1{
     font-family: Arial, Helvetica, sans-serif;
-    color:gold;
+    color:red;
 }
 h2{
     font-family: monospace;
-    color:aliceblue;
+    color:purple;
 }
 p{
     font-family:'Courier New', Courier, monospace;
-    color:green;
+    color:white;
 }

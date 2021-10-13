@@ -1,0 +1,56 @@
+
+#titulo{
+    color:lightseagreen;
+}
+
+.destacado{
+    color:orange;
+}
+
+#subtitulo{
+    color:blue;
+}
+
+.link-rojo{
+    color:red;
+    text-decoration: underline red;
+}
+
+.link-azul{
+    text-decoration: underline red
+}
+
+.especial{
+    color:purple;
+}
+
+.tabla{
+    width: 370px;
+    border: 1px solid #000;
+    border-collapse: collapse;
+
+}
+
+.tabla th, .tabla td {
+    border: 1px solid #000;
+}
+
+.tabla td{
+    color:green;
+}
+
+.tituloAmarillo{
+    color:orange;
+}
+
+.tituloRojo{
+    color:red;
+}
+
+#adicional{
+    color:rgb(22, 102, 22)
+}
+
+#especial{
+    color:violet;
+}

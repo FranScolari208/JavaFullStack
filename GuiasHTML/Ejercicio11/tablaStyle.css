@@ -1,0 +1,39 @@
+table {
+    border: 1px solid #333;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: Arial;
+}
+
+thead{
+    background: url("IMG/fondo_gris.gif") no-repeat;
+}
+
+th,	td {
+    padding: 8px;
+    border: 1px solid #333;
+}
+
+.amarillo{
+    background-color:#FFFFCC;
+}
+
+tbody th {
+    padding-left: 20px;
+}
+
+tbody tr:first-child th:first-child {
+    background: #E6F3FF url("IMG/euro.png") 3px no-repeat;
+}
+
+tbody tr:nth-child(2) th:first-child {
+    background: #E6F3FF url("IMG/dolar.png") 3px no-repeat;
+}
+
+tbody tr:nth-child(3) th:first-child {
+    background: #E6F3FF url("IMG/libra.png") 3px no-repeat;
+}
+
+tbody tr:nth-child(4) th:first-child {
+    background: #E6F3FF url("IMG/yen.png") 3px no-repeat;
+}

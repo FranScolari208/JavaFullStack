@@ -1,13 +1,13 @@
-package guiaSpring.egg.libreria.springboot;
+package ejercicio1.egg.libreria;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class LibreriaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(LibreriaApplication.class, args);
 	}
 
 }

@@ -24,7 +24,6 @@ public class AutorDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
-            e.printStackTrace();
             throw new MiExcepcion("ERROR AL GUARDAR EL AUTOR");
         }
     }
@@ -94,5 +93,3 @@ public class AutorDAO {
     }
         
 }
-
-

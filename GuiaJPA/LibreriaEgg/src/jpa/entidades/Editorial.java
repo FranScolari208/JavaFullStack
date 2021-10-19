@@ -1,4 +1,3 @@
-
 package jpa.entidades;
 
 
@@ -46,9 +45,5 @@ public class Editorial {
     public void setAlta(Boolean alta) {
         this.alta = alta;
     }
-
-    
-    
-    
-    
+   
 }

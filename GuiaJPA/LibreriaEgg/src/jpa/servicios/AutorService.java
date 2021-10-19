@@ -19,28 +19,25 @@ public class AutorService {
     
     public Autor crearAutor()throws MiExcepcion{
         Autor autor = new Autor();
-        Long id;
-        try{
-           do{
-            id = Long.parseLong(generarIdAutor());
-            } while (autorDAO.buscarAutorPorIdDeAutor(id) != null);
-        
+        try{  
         System.out.println("INGRESE EL NOMBRE DEL AUTOR");
         String nombre = leer.next();
-        if(nombre==null){
-            return null;
-        }
-        autor.setId(id);
-        autor.setNombre(nombre);
-        autor.setAlta(true);
-        autorDAO.guardarAutor(autor);
-        }catch (Exception e) {
-            e.printStackTrace();
-            throw new MiExcepcion("ERROR EN INTRODUCIR AL AUTOR");
- 
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new MiExcepcion("EL NOMBRE DEL AUTOR ES OBLIGATORIO");
         }
         
-        return autor;
+        List <Autor> autores = buscarAutorPorNombre(nombre);
+        if(autores.isEmpty()){
+           autor.setNombre(nombre);
+           autorDAO.guardarAutor(autor);
+
+        return autor; 
+        }else{
+            return null;
+        }
+        } catch (MiExcepcion e) {
+            throw e;
+        }
     }
     
     public static String generarIdAutor() {

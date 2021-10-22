@@ -11,9 +11,7 @@ public class Autor{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private String nombre;
-    @Column(nullable = false)
     private Boolean alta;
 
     public Autor() {

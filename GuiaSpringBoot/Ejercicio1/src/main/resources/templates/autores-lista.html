@@ -1,16 +1,47 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Autores Listados</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
     </head>
+    <style>
+        h1{
+            color: black;
+            text-align: center;
+            font-family:unset;
+            background-color:rgb(236, 231, 230);
+        }
+    </style>
     <body>
-        <div>TODO write content</div>
+        <table class="table table-striped">
+            <thead>
+                <h1>AUTORES</h1>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Editar Autor</th>
+                    <th>Dar de Baja</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Producto1</th>
+                    <th><button type="button" class="btn btn-primary">Editar</button></th>
+                    <th><button type="button" class="btn btn-danger">Dar de baja</button></th>
+                </tr>
+                <tr>
+                    <th>Producto2</th>
+                    <th><button type="button" class="btn btn-primary">Editar</button></th>
+                    <th><button type="button" class="btn btn-danger">Dar de baja</button></th>
+                </tr>
+                <tr>
+                    <th>Producto3</th>
+                    <th><button type="button" class="btn btn-primary">Editar</button></th>
+                    <th><button type="button" class="btn btn-danger">Dar de baja</button></th>
+                </tr>
+            </tbody>
+        </table>
+        <script src="../static/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

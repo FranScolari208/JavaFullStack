@@ -1,5 +1,7 @@
 package ejercicio1.egg.libreria.entidades;
 
+import ejercicio1.egg.libreria.entidades.Editorial;
+import ejercicio1.egg.libreria.entidades.Autor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,17 +15,11 @@ public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long isbn;    
-    @Column(nullable = false)
     private String titulo;
-    @Column(nullable = false)
     private Integer anio;
-    @Column(nullable = false)
     private Integer ejemplares;
-    @Column(nullable = false)
     private Integer ejemplaresPrestados;
-    @Column(nullable = false)
     private Integer ejemplaresRestantes;
-    @Column(nullable = false)
     private Boolean alta;
     @JoinColumn(nullable = false)
     @ManyToOne

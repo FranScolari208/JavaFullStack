@@ -18,27 +18,23 @@
         <table class="table table-striped">
             <thead>
                 <h1>AUTORES</h1>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Editar Autor</th>
-                    <th>Dar de Baja</th>
+                <tr align="center">
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>ALTA</th>
+                    <th>EDITAR</th>
+                    <th>DAR DE BAJA</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>Producto1</th>
-                    <th><button type="button" class="btn btn-primary">Editar</button></th>
-                    <th><button type="button" class="btn btn-danger">Dar de baja</button></th>
-                </tr>
-                <tr>
-                    <th>Producto2</th>
-                    <th><button type="button" class="btn btn-primary">Editar</button></th>
-                    <th><button type="button" class="btn btn-danger">Dar de baja</button></th>
-                </tr>
-                <tr>
-                    <th>Producto3</th>
-                    <th><button type="button" class="btn btn-primary">Editar</button></th>
-                    <th><button type="button" class="btn btn-danger">Dar de baja</button></th>
+                <tr th:eack="autor : ${autores}" align="center">
+                    <td> th:text = "${autor.id}"</td>
+                    <td> th:text = "${autor.nombre}"</td>
+                    <td> th:text = "${autor.apellido}"</td>
+                    <td> th:text = "${autor.alta}"</td>
+                    <td><button type="button" class="btn btn-primary">Editar</button></td>
+                    <td><button type="button" class="btn btn-danger">Dar de baja</button></td>
                 </tr>
             </tbody>
         </table>

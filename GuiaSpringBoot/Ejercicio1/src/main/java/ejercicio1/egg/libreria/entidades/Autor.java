@@ -12,14 +12,16 @@ public class Autor{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
+    private String apellido;
     private Boolean alta;
 
     public Autor() {
     }
 
-    public Autor(Long id, String nombre, Boolean alta) {
+    public Autor(Long id, String nombre, String apellido, Boolean alta) {
         this.id = id;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.alta = alta;
     }
 
@@ -37,6 +39,14 @@ public class Autor{
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public Boolean getAlta() {

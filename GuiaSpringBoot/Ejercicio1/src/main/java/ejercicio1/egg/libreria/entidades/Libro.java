@@ -2,7 +2,6 @@ package ejercicio1.egg.libreria.entidades;
 
 import ejercicio1.egg.libreria.entidades.Editorial;
 import ejercicio1.egg.libreria.entidades.Autor;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

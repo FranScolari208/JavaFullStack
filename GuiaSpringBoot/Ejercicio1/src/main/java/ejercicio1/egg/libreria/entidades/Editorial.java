@@ -1,10 +1,11 @@
 package ejercicio1.egg.libreria.entidades;
 
-import javax.persistence.Column;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Editorial{
@@ -12,7 +13,9 @@ public class Editorial{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
    private String nombre;
-   private Boolean alta;
+   private Boolean alta; 
+   @OneToMany(mappedBy = "editorial")
+   private List<Libro> libros;
 
     public Editorial() {
     }

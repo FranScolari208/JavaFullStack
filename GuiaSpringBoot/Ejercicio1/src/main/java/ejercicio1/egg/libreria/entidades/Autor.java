@@ -1,10 +1,11 @@
 package ejercicio1.egg.libreria.entidades;
 
-import javax.persistence.Column;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Autor{
@@ -14,6 +15,8 @@ public class Autor{
     private String nombre;
     private String apellido;
     private Boolean alta;
+    @OneToMany(mappedBy = "autor")
+    private List<Libro> libros;
 
     public Autor() {
     }

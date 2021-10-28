@@ -59,10 +59,17 @@
     </div>
 </nav>
 
-<footer th:fragment="footer" class="footer py-3 bg-dark fixed-bottom">
-    <div class="container d-flex justify-content-center">
-        <span class="text-muted">&copy; Franco Scolari - 2021</span>
+<footer th:fragment="footer">
+    <div class="pull-right">
+        <a href="https://eggeducacion.com/es-AR/"><img th:src="@{/imagenes/egg.jpg}" alt="Egg"></a>
+        <a href="https://www.gylgroup.com/"><img th:src="@{/imagenes/gyl.jpg}" alt="G&L"></a>
+        
     </div>
+    <!--
+    <div class="foto">
+        <a href="https://eggeducacion.com/es-AR/"><img align= "right"th:src="@{/imagenes/logo-egg.png}" /></a>
+    </div>
+    -->
 </footer>
 
 </html>

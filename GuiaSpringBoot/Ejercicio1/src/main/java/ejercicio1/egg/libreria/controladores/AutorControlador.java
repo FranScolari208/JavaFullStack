@@ -20,12 +20,10 @@ public class AutorControlador {
     @Autowired
     private AutorServicio autorServicio;
     
-    @GetMapping("/todos")
-    public ModelAndView mostrarAutores(){
-        ModelAndView mav = new ModelAndView("autores-lista");
-        List<Autor> autores = autorServicio.obtenerAutores();
-        mav.addObject("autores", autores);
-        
+    @GetMapping
+    public ModelAndView mostrarTodos(){
+        ModelAndView mav = new ModelAndView("autores");
+        mav.addObject("autores", autorServicio.obtenerAutores());  
         return mav;
     }
     

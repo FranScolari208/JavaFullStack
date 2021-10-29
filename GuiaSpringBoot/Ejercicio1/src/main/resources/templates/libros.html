@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-    <head>
+    <head>    
+        <meta charset="UTF-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+        <meta content="Ejercicio 1 Libreria" name="description"/>
+        <meta content="Franco Scolari" name="author"/>
         <title>Libros Listados</title>
-        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- BOOTSTRAP -->
         <link rel="stylesheet" th:href="@{/assets/bootstrap.min.css}"/>
@@ -11,7 +15,53 @@
     </head>
     <body>
         <nav th:replace="fragmentos :: navbar"></nav>
-
+        
+        <div class="container mt-5 main">
+            <h1>Listado de Libros</h1>
+            <hr class="mb-5"/>
+                <div th:if="${libros.isEmpty()}">
+                    <h5>Todavía no hay libros cargados. <a th:href="@{/libros/crear}">Cargar Libro.</a></h5>
+                </div>
+                <div class="table-responsive" th:unless="${libros.isEmpty()}">
+                    <table class="table table-hover table-sm table-bordered">
+                        <thead class="table-secondary text-center">
+                            <tr>
+                                <th class="col-md-4 px-md-2" scope="col">ISBN</th>
+                                <th class="col-md-4 px-md-2" scope="col">Titulo</th>
+                                <th class="col-md-4 px-md-2" scope="col">Año</th>
+                                <th class="col-md-4 px-md-2" scope="col">Ejemplares</th>
+                                <th class="col-md-4 px-md-2" scope="col">Ejemplares Prestados</th>
+                                <th class="col-md-4 px-md-2" scope="col">Ejemplares Restantes</th>
+                                <th class="col-md-4 px-md-2" scope="col">Autor</th>
+                                <th class="col-md-4 px-md-2" scope="col">Editorial</th>
+                                <th class="col-md-4 px-md-2" scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="libro : ${libros}">
+                                <td class="col-md-4 px-md-2" th:text="${libro.isbn}"></td>
+                                <td class="col-md-4 px-md-2" th:text="${libro.titulo}"></td>
+                                <td class="col-md-4 px-md-2" th:text="${libro.anio}"></td>
+                                <td class="col-md-4 px-md-2" th:text="${libro.ejemplares}"></td>
+                                <td class="col-md-4 px-md-2" th:text="${libro.ejemplaresPrestados}"></td>
+                                <td class="col-md-4 px-md-2" th:text="${libro.ejemplaresRestantes}"></td>
+                                <td class="col-md-4 px-md-2">
+                                    <span th:text="|${libro.autor.nombre} ${libro.autor.apellido}|"></span>
+                                </td>
+                                <td class="col-md-4 px-md-2">
+                                    <span th:text="|${libro.editorial.nombre}|"></span>
+                                </td>
+                                <td class="col-md-4 px-md-2 d-flex justify-content-around w-100">
+                                    <a class="btn btn-secondary btn-sm" th:href="@{/libros/editar/__${libro.isbn}__}">Editar</a>
+                                    <form method="post" th:action="@{/libros/eliminar/__${libro.isbn}__}">
+                                        <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
         <footer th:replace="fragmentos :: footer"></footer>
     <!-- JS -->
     <script th:src="@{/assets/bootstrap.bundle.min.js}"></script>

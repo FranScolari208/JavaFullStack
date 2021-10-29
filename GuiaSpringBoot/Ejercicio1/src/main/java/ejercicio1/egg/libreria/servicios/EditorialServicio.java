@@ -15,10 +15,9 @@ public class EditorialServicio {
     private EditorialRepositorio repositorio;
     
     @Transactional
-    public void crearEditorial(Long id, String nombre){
+    public void crearEditorial(String nombre){
         Editorial editorial = new Editorial();
-        
-        editorial.setId(id);
+
         editorial.setNombre(nombre);
         editorial.setAlta(true);
         

@@ -16,10 +16,9 @@ public class AutorServicio {
     private AutorRepositorio repositorio;
     
     @Transactional
-    public void crearAutor(Long id, String nombre, String apellido){
+    public void crearAutor(String nombre, String apellido){
         Autor autor = new Autor();
         
-        autor.setId(id);
         autor.setNombre(nombre);
         autor.setApellido(apellido);
         autor.setAlta(true);

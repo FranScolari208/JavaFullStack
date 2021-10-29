@@ -37,8 +37,8 @@ public class AutorControlador {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam Long id, @RequestParam String nombre, @RequestParam String apellido){
-        autorServicio.crearAutor(id, nombre, apellido);
+    public RedirectView guardar(@RequestParam String nombre, @RequestParam String apellido){
+        autorServicio.crearAutor(nombre, apellido);
         return new RedirectView("/autores");
     }
     

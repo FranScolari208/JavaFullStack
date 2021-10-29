@@ -35,8 +35,8 @@ public class EditorialControlador {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam Long id, @RequestParam String nombre){
-        editorialServicio.crearEditorial(id, nombre);
+    public RedirectView guardar(@RequestParam String nombre){
+        editorialServicio.crearEditorial(nombre);
         return new RedirectView("/editoriales");
     }
 }

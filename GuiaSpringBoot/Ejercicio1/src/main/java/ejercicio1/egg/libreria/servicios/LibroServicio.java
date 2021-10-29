@@ -3,6 +3,8 @@ package ejercicio1.egg.libreria.servicios;
 import ejercicio1.egg.libreria.entidades.Autor;
 import ejercicio1.egg.libreria.entidades.Editorial;
 import ejercicio1.egg.libreria.entidades.Libro;
+import ejercicio1.egg.libreria.repositorios.AutorRepositorio;
+import ejercicio1.egg.libreria.repositorios.EditorialRepositorio;
 import ejercicio1.egg.libreria.repositorios.LibroRepositorio;
 import java.util.List;
 import java.util.Optional;
@@ -17,26 +19,31 @@ public class LibroServicio {
     @Autowired
     private LibroRepositorio repositorio;
     
+    @Autowired
+    private AutorRepositorio autorRepositorio;
+    
+    @Autowired
+    private EditorialRepositorio editorialRepositorio;
+    
     @Transactional
-    public void crearLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, Autor autor, Editorial editorial){
+    public void crearLibro(String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Long idAutor, Long idEditorial){
         Libro libro = new Libro();
-        
-        libro.setIsbn(isbn);
+        Integer ejemplaresRestantes = ejemplares - ejemplaresPrestados;
         libro.setTitulo(titulo);
         libro.setAnio(anio);
         libro.setEjemplares(ejemplares);
         libro.setEjemplaresPrestados(ejemplaresPrestados);
         libro.setEjemplaresRestantes(ejemplaresRestantes);
-        libro.setAutor(autor);
-        libro.setEditorial(editorial);
-        autor.setAlta(true);
+        libro.setAutor(autorRepositorio.findById(idAutor).orElse(null));
+        libro.setEditorial(editorialRepositorio.findById(idEditorial).orElse(null));
+        libro.setAlta(true);
         
         repositorio.save(libro);
     }
     
     @Transactional
-    public void modificar(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, Autor autor, Editorial editorial){
-        repositorio.modificar(isbn, titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes, autor, editorial);
+    public void modificar(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes){
+        repositorio.modificar(isbn, titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes);
     }
     
     @Transactional(readOnly = true)

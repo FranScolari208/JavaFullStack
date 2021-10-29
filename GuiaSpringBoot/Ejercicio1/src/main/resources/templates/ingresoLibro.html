@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+        <meta content="Ejercicio 1 Libreria" name="description"/>
+        <meta content="Franco Scolari" name="author"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ingresar un Libro</title>
+        
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" th:href="@{/assets/bootstrap.min.css}"/>
+        <!-- CSS -->
+        <link rel="stylesheet" th:href="@{/css/estilos.css}"/>
+    </head>
+    <body>
+        <nav th:replace="fragmentos :: navbar"></nav>
+        <div class="container mt-5 main">
+            <h1 th:text="${title}"></h1>
+            <hr class="mb-5 col-xl-12"/>
+            <form autocomplete="off" class="needs-validation" id="formulario" method="POST"
+                  novalidate th:action="@{/libros/__${action}__}" th:object="${libro}">
+                <input th:field="*{isbn}" type="hidden"/>
+                <div class="form-floating mb-3 col-xl-6">
+                    <input class="form-control" id="titulo" placeholder="Titulo" required th:field="*{titulo}" type="text"/>
+                    <label for="titulo">Titulo</label>
+                    <div class="invalid-feedback">El titulo es obligatorio</div>
+                </div>
+                <div class="form-floating mb-3 col-xl-6">
+                    <input class="form-control" id="anio" placeholder="Anio" required th:field="*{anio}" type="text"/>
+                    <label for="anio">Año</label>
+                    <div class="invalid-feedback">El año es obligatorio</div>
+                </div>
+                <div class="form-floating mb-3 col-xl-6">
+                    <input class="form-control" id="ejemplares" placeholder="Ejemplares" required th:field="*{ejemplares}" type="text"/>
+                    <label for="ejemplares">Ejemplares</label>
+                    <div class="invalid-feedback">La cantidad de ejemplares es obligatoria</div>
+                </div>
+                <div class="form-floating mb-3 col-xl-6">
+                    <input class="form-control" id="ejemplaresPrestados" placeholder="EjemplaresPrestados" required th:field="*{ejemplaresPrestados}" type="text"/>
+                    <label for="ejemplaresPrestados">Ejemplares Prestados</label>
+                    <div class="invalid-feedback">La cantidad de ejemplares prestados es obligatoria</div>
+                </div>
+                <div class="form-floating mb-3 col-xl-6">
+                    <select aria-label="Elegir autor" class="form-select" id="autor" th:field="*{autor}">
+                        <option selected value="">Elegir Autor</option>
+                        <option th:each="autor : ${autores}" th:text="|${autor.nombre} ${autor.apellido}|"
+                                th:value="${autor.id}"></option>
+                    </select>
+                    <label for="autor">Autor</label>
+                </div>
+                <div class="form-floating mb-3 col-xl-6">
+                    <select aria-label="Elegir editorial" class="form-select" id="editorial" th:field="*{editorial}">
+                        <option selected value="">Elegir Editorial</option>
+                        <option th:each="editorial : ${editoriales}" th:text="|${editorial.nombre}|"
+                                th:value="${editorial.id}"></option>
+                    </select>
+                    <label for="editorial">Editorial</label>
+                </div>
+                <div class="row">
+                    <div class="col-xl-3">
+                        <button class="btn btn-success" th:text="${action == 'crear'} ? 'Crear Libro' : 'Guardar cambios'"
+                                type="submit"></button>
+                    </div>
+                </div>
+            </form>
+        </div>       
+        <footer th:replace="fragmentos :: footer"></footer>
+        <!-- JS -->
+        <script th:src="@{/assets/bootstrap.bundle.min.js}"></script>
+    </body>
+</html>

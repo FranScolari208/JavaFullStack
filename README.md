@@ -8,6 +8,7 @@ Curso intensivo de Java dado por la empresa Egg en asociacion con la empresa G&L
 - [x] Union de Java con SQL mediante JDBC
 - [x] Union de Java con SQL mediante JPA
 - [x] HTML
-- [x] CSS  
+- [x] CSS
+- [x] BootStrap   
 - [x] Java Spring Boot
 - [x] Proyecto final grupal integrador de todos los temas vistos       

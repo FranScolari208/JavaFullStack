@@ -28,7 +28,9 @@ public class LibroServicio {
     @Transactional
     public void crearLibro(String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Long idAutor, Long idEditorial){
         Libro libro = new Libro();
+        
         Integer ejemplaresRestantes = ejemplares - ejemplaresPrestados;
+        
         libro.setTitulo(titulo);
         libro.setAnio(anio);
         libro.setEjemplares(ejemplares);

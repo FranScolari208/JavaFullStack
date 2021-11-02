@@ -15,6 +15,7 @@ public class Autor{
     private String nombre;
     private String apellido;
     private Boolean alta;
+    
     @OneToMany(mappedBy = "autor")
     private List<Libro> libros;
 

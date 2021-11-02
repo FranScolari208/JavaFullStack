@@ -14,6 +14,7 @@ public class Editorial{
    private Long id;
    private String nombre;
    private Boolean alta; 
+   
    @OneToMany(mappedBy = "editorial")
    private List<Libro> libros;
 

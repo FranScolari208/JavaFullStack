@@ -3,6 +3,8 @@ package ejercicio1.egg.libreria.controladores;
 import ejercicio1.egg.libreria.entidades.Autor;
 import ejercicio1.egg.libreria.entidades.Editorial;
 import ejercicio1.egg.libreria.entidades.Libro;
+import ejercicio1.egg.libreria.servicios.AutorServicio;
+import ejercicio1.egg.libreria.servicios.EditorialServicio;
 import ejercicio1.egg.libreria.servicios.LibroServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,12 @@ public class LibroControlador {
     @Autowired
     private LibroServicio libroServicio;
     
+    @Autowired
+    private AutorServicio autorServicio;
+    
+    @Autowired
+    private EditorialServicio editorialServicio;
+    
     @GetMapping
     public ModelAndView mostrarTodos(){
         ModelAndView mav = new ModelAndView("libros");
@@ -30,6 +38,8 @@ public class LibroControlador {
     @GetMapping("/crear")
     public ModelAndView crearLibro(){
         ModelAndView mav = new ModelAndView("ingresoLibro");
+        mav.addObject("autores", autorServicio.obtenerAutores());
+        mav.addObject("editoriales", editorialServicio.obtenerEditoriales());
         mav.addObject("libro", new Libro());
         mav.addObject("title", "Crear Libro");
         mav.addObject("action", "guardar");     
@@ -37,7 +47,7 @@ public class LibroControlador {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Integer ejemplaresPrestados, @RequestParam Long idAutor, @RequestParam Long idEditorial){
+    public RedirectView guardar(@RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Integer ejemplaresPrestados, @RequestParam("autor") Long idAutor, @RequestParam("editorial") Long idEditorial){
         libroServicio.crearLibro(titulo, anio, ejemplares, ejemplaresPrestados, idAutor, idEditorial);
         return new RedirectView("/libros");
     }

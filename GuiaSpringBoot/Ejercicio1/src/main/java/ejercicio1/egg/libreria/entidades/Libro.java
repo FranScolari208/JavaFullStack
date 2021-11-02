@@ -20,10 +20,10 @@ public class Libro {
     private Integer ejemplaresPrestados;
     private Integer ejemplaresRestantes;
     private Boolean alta;
-    @JoinColumn(nullable = false)
+
     @ManyToOne
     private Autor autor;
-    @JoinColumn(nullable = false)
+
     @ManyToOne
     private Editorial editorial;
 

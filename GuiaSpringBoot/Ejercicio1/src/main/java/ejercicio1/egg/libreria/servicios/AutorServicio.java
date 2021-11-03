@@ -33,13 +33,28 @@ public class AutorServicio {
     
     @Transactional(readOnly = true)
     public List<Autor> obtenerAutores(){
-        return repositorio.findAll();
+        return repositorio.obtenerHabilitados();
     }
     
     @Transactional(readOnly = true)
     public Autor buscarPorId(Long id){
         Optional<Autor> autorOpcional = repositorio.findById(id);
         return autorOpcional.orElse(null);
+    }
+
+    @Transactional
+    public List<Autor> obtenerAutoresDeshabilitados(){
+        return repositorio.obtenerDeshabilitados();
+    }
+
+    @Transactional
+    public void deshabilitar(Long id) {
+        repositorio.deshabilitarAutor(id);
+    }
+
+    @Transactional
+    public void habilitar(Long id) {
+        repositorio.habilitarAutor(id);
     }
 }
 

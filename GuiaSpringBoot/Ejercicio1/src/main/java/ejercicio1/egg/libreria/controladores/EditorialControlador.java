@@ -6,10 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
@@ -48,5 +45,31 @@ public class EditorialControlador {
     public RedirectView guardar(@RequestParam String nombre){
         editorialServicio.crearEditorial(nombre);
         return new RedirectView("/editoriales");
+    }
+
+    @PostMapping("/deshabilitar/{id}")
+    public RedirectView deshabilitar(@PathVariable Long id) {
+        editorialServicio.deshabilitar(id);
+        return new RedirectView("/editoriales");
+    }
+
+    @PostMapping("/habilitar/{id}")
+    public RedirectView habilitar(@PathVariable Long id) {
+        editorialServicio.habilitar(id);
+        return new RedirectView("/editoriales/deshabilitadas");
+    }
+
+    @GetMapping("/deshabilitadas")
+    public ModelAndView mostrarDeshabilitados(HttpServletRequest request){
+        Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+        ModelAndView mav = new ModelAndView("editorialesDeshabilitadas");
+
+        if (flashMap != null) {
+            mav.addObject("exito", flashMap.get("exito-name"));
+            mav.addObject("error", flashMap.get("error-name"));
+        }
+
+        mav.addObject("editoriales", editorialServicio.obtenerEditorialesDeshabilitadas());
+        return mav;
     }
 }

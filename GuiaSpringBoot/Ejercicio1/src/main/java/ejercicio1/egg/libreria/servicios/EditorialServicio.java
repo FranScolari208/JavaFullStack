@@ -1,5 +1,6 @@
 package ejercicio1.egg.libreria.servicios;
 
+import ejercicio1.egg.libreria.entidades.Autor;
 import ejercicio1.egg.libreria.entidades.Editorial;
 import ejercicio1.egg.libreria.repositorios.EditorialRepositorio;
 import java.util.List;
@@ -31,12 +32,27 @@ public class EditorialServicio {
     
     @Transactional(readOnly = true)
     public List<Editorial> obtenerEditoriales(){
-        return repositorio.findAll();
+        return repositorio.obtenerEditorialesHabilitadas();
     }
     
     @Transactional(readOnly = true)
     public Editorial buscarPorId(Long id){
         Optional<Editorial> editorialOpcional = repositorio.findById(id);
         return editorialOpcional.orElse(null);
+    }
+
+    @Transactional
+    public List<Editorial> obtenerEditorialesDeshabilitadas(){
+        return repositorio.obtenerDeshabilitadas();
+    }
+
+    @Transactional
+    public void deshabilitar(Long id) {
+        repositorio.deshabilitarEditorial(id);
+    }
+
+    @Transactional
+    public void habilitar(Long id) {
+        repositorio.habilitarEditorial(id);
     }
 }

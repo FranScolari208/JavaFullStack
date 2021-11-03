@@ -8,10 +8,7 @@ import ejercicio1.egg.libreria.servicios.EditorialServicio;
 import ejercicio1.egg.libreria.servicios.LibroServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -49,6 +46,12 @@ public class LibroControlador {
     @PostMapping("/guardar")
     public RedirectView guardar(@RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Integer ejemplaresPrestados, @RequestParam("autor") Long idAutor, @RequestParam("editorial") Long idEditorial){
         libroServicio.crearLibro(titulo, anio, ejemplares, ejemplaresPrestados, idAutor, idEditorial);
+        return new RedirectView("/libros");
+    }
+
+    @PostMapping("/eliminar/{id}")
+    public RedirectView eliminar(@PathVariable Long id){
+        libroServicio.eliminar(id);
         return new RedirectView("/libros");
     }
 }

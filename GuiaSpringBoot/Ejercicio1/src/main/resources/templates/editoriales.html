@@ -31,9 +31,9 @@
                             <td class="col-md-4 px-md-2" th:text="${editorial.id}"></td>
                             <td class="col-md-4 px-md-2" th:text="${editorial.nombre}"></td>
                             <td class="col-md-4 px-md-2 d-flex justify-content-around w-100">
-                                <a class="btn btn-secondary btn-sm" th:href="@{/editoriales/editar/__${editorial.id}__}">Editar</a>
-                                <form method="post" th:action="@{/editoriales/eliminar/__${editorial.id}__}">
-                                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                <a class="btn btn-success btn-sm" th:href="@{/editoriales/editar/__${editorial.id}__}">Editar</a>
+                                <form method="post" th:action="@{/editoriales/deshabilitar/__${editorial.id}__}">
+                                    <button class="btn btn-danger btn-sm" type="submit">Dar de baja</button>
                                 </form>
                             </td>
                         </tr>

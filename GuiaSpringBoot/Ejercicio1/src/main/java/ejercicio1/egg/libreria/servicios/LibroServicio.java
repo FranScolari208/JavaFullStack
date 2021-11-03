@@ -58,4 +58,9 @@ public class LibroServicio {
         Optional<Libro> libroOpcional = repositorio.findById(isbn);
         return libroOpcional.orElse(null);
     }
+
+    @Transactional
+    public void eliminar(Long id){
+        repositorio.deleteById(id);
+    }
 }

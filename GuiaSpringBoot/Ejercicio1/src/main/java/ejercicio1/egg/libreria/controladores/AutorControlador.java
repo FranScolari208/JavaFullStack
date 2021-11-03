@@ -2,7 +2,7 @@ package ejercicio1.egg.libreria.controladores;
 
 import ejercicio1.egg.libreria.entidades.Autor;
 import ejercicio1.egg.libreria.servicios.AutorServicio;
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,30 @@ public class AutorControlador {
         autorServicio.crearAutor(nombre, apellido);
         return new RedirectView("/autores");
     }
+
+    @PostMapping("/deshabilitar/{id}")
+    public RedirectView deshabilitar(@PathVariable Long id) {
+        autorServicio.deshabilitar(id);
+        return new RedirectView("/autores");
+    }
+
+    @PostMapping("/habilitar/{id}")
+    public RedirectView habilitar(@PathVariable Long id) {
+        autorServicio.habilitar(id);
+        return new RedirectView("/autores/deshabilitados");
+    }
     
-//    @GetMapping("/editar")
-//    public ModelAndView editarAutor
+    @GetMapping("/deshabilitados")
+    public ModelAndView mostrarDeshabilitados(HttpServletRequest request){
+        Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+        ModelAndView mav = new ModelAndView("autoresDeshabilitados");
+
+        if (flashMap != null) {
+            mav.addObject("exito", flashMap.get("exito-name"));
+            mav.addObject("error", flashMap.get("error-name"));
+        }
+
+        mav.addObject("autores", autorServicio.obtenerAutoresDeshabilitados());
+        return mav;
+    }
 }

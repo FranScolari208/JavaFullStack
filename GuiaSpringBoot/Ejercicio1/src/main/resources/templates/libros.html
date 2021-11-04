@@ -13,6 +13,14 @@
         <!-- CSS -->
         <link rel="stylesheet" th:href="@{/css/estilos.css}"/>
     </head>
+    <style>
+        body {
+            background-image: url(../imagenes/prueba.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+        }
+    </style>
     <body>
         <nav th:replace="fragmentos :: navbar"></nav>
         
@@ -23,7 +31,7 @@
                     <h5>Todavía no hay libros cargados. <a th:href="@{/libros/crear}">Cargar Libro.</a></h5>
                 </div>
                 <div class="table-responsive" th:unless="${libros.isEmpty()}">
-                    <table class="table table-hover table-sm table-bordered">
+                    <table class="table table-hover table-sm table-bordered table-light">
                         <thead class="table-secondary text-center">
                             <tr>
                                 <th class="col-md-1 px-md-2" scope="col">ISBN</th>
@@ -52,7 +60,7 @@
                                     <span th:text="|${libro.editorial.nombre}|"></span>
                                 </td>
                                 <td class="col-md-5 px-md-2 d-flex justify-content-around w-100">
-                                    <a class="btn btn-success btn-sm" th:href="@{/libros/editar/__${libro.isbn}__}">Editar</a>
+                                    <a class="btn btn-success btn-sm align-m" th:href="@{/libros/editar/__${libro.isbn}__}">Editar</a>
                                     <form method="post" th:action="@{/libros/eliminar/__${libro.isbn}__}">
                                         <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
                                     </form>

@@ -9,6 +9,15 @@
         <!-- CSS -->
         <link rel="stylesheet" th:href="@{/css/estilos.css}"/>
     </head>
+    <style>
+        body{
+            background-image: url(../imagenes/prueba.jpg);
+            background-repeat: no-repeat;
+            background-size:cover;
+            width: 100%;
+        }
+
+    </style>
     <body>
         <nav th:replace="fragmentos :: navbar"></nav>
        
@@ -19,7 +28,7 @@
                     <h5>Todavía no hay autores cargados. <a th:href="@{/autores/crear}">Cargar Autor.</a></h5>
                 </div>
                 <div class="table-responsive" th:unless="${autores.isEmpty()}">
-                    <table class="table table-hover table-sm table-bordered">
+                    <table class="table table-hover table-sm table-bordered table-light">
                         <thead class="table-secondary text-center">
                             <tr>
                                 <th class="col-md-2 px-md-2" scope="col">ID</th>

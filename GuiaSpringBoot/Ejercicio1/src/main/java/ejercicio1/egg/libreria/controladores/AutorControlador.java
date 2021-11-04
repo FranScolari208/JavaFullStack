@@ -45,6 +45,21 @@ public class AutorControlador {
         mav.addObject("action", "guardar");     
         return mav;
     }
+
+    @GetMapping("/editar/{id}")
+    public ModelAndView editarAutor(@PathVariable Long id) {
+        ModelAndView mav = new ModelAndView("ingresoAutor");
+        mav.addObject("autor", autorServicio.buscarPorId(id));
+        mav.addObject("title", "Editar Autor");
+        mav.addObject("action", "modificar");
+        return mav;
+    }
+
+    @PostMapping("/modificar")
+    public RedirectView modificar(@RequestParam Long id, @RequestParam String nombre, @RequestParam String apellido) {
+        autorServicio.modificar(id, nombre, apellido);
+        return new RedirectView("/autores");
+    }
     
     @PostMapping("/guardar")
     public RedirectView guardar(@RequestParam String nombre, @RequestParam String apellido){

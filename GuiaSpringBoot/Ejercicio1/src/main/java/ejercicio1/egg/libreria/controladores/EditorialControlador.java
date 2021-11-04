@@ -59,6 +59,21 @@ public class EditorialControlador {
         return new RedirectView("/editoriales/deshabilitadas");
     }
 
+    @GetMapping("/editar/{id}")
+    public ModelAndView editarEditorial(@PathVariable Long id) {
+        ModelAndView mav = new ModelAndView("ingresoEditorial");
+        mav.addObject("editorial", editorialServicio.buscarPorId(id));
+        mav.addObject("title", "Editar Editorial");
+        mav.addObject("action", "modificar");
+        return mav;
+    }
+
+    @PostMapping("/modificar")
+    public RedirectView modificar(@RequestParam Long id, @RequestParam String nombre) {
+        editorialServicio.modificar(id, nombre);
+        return new RedirectView("/editoriales");
+    }
+
     @GetMapping("/deshabilitadas")
     public ModelAndView mostrarDeshabilitados(HttpServletRequest request){
         Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);

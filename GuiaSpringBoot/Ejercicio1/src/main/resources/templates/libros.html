@@ -42,7 +42,7 @@
                                 <th class="col-md-2 px-md-2" scope="col">Ejemplares Restantes</th>
                                 <th class="col-md-3 px-md-2" scope="col">Autor</th>
                                 <th class="col-md-3 px-md-2" scope="col">Editorial</th>
-                                <th class="col-md-5 px-md-2" scope="col">Acciones</th>
+                                <th class="col-md-4 px-md-2" scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,7 +59,7 @@
                                 <td class="col-md-3 px-md-2">
                                     <span th:text="|${libro.editorial.nombre}|"></span>
                                 </td>
-                                <td class="col-md-5 px-md-2 d-flex justify-content-around w-100">
+                                <td class="col-md-4 px-md-2 d-flex justify-content-around w-100">
                                     <a class="btn btn-success btn-sm align-m" th:href="@{/libros/editar/__${libro.isbn}__}">Editar</a>
                                     <form method="post" th:action="@{/libros/eliminar/__${libro.isbn}__}">
                                         <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>

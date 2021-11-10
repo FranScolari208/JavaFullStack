@@ -54,4 +54,21 @@ public class LibroControlador {
         libroServicio.eliminar(id);
         return new RedirectView("/libros");
     }
+
+    @GetMapping("/editar/{isbn}")
+    public ModelAndView editarLibro(@PathVariable Long isbn) {
+        ModelAndView mav = new ModelAndView("ingresoLibro");
+        mav.addObject("libro", libroServicio.buscarPorIsbn(isbn));
+        mav.addObject("autores", autorServicio.obtenerAutores());
+        mav.addObject("editoriales", editorialServicio.obtenerEditoriales());
+        mav.addObject("title", "Editar Libro");
+        mav.addObject("action", "modificar");
+        return mav;
+    }
+
+    @PostMapping("/modificar")
+    public RedirectView modificar(@RequestParam Long isbn, @RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Integer ejemplaresPrestados, @RequestParam Autor autor, @RequestParam Editorial editorial) throws Exception{
+        libroServicio.modificar(isbn, titulo, anio, ejemplares, ejemplaresPrestados, autor, editorial);
+        return new RedirectView("/libros");
+    }
 }

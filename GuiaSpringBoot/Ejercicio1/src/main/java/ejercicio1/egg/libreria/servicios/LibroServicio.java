@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LibroServicio {
     
     @Autowired
-    private LibroRepositorio repositorio;
+    private LibroRepositorio libroRepositorio;
     
     @Autowired
     private AutorRepositorio autorRepositorio;
@@ -40,27 +40,27 @@ public class LibroServicio {
         libro.setEditorial(editorialRepositorio.findById(idEditorial).orElse(null));
         libro.setAlta(true);
         
-        repositorio.save(libro);
+        libroRepositorio.save(libro);
     }
     
     @Transactional
-    public void modificar(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes){
-        repositorio.modificar(isbn, titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes);
+    public void modificar(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Autor autor, Editorial editorial){
+        libroRepositorio.modificar(isbn, titulo, anio, ejemplares, ejemplaresPrestados, autor,  editorial);
     }
     
     @Transactional(readOnly = true)
     public List<Libro> obtenerLibros(){
-        return repositorio.findAll();
+        return libroRepositorio.findAll();
     }
     
     @Transactional(readOnly = true)
     public Libro buscarPorIsbn(Long isbn){
-        Optional<Libro> libroOpcional = repositorio.findById(isbn);
+        Optional<Libro> libroOpcional = libroRepositorio.findById(isbn);
         return libroOpcional.orElse(null);
     }
 
     @Transactional
     public void eliminar(Long id){
-        repositorio.deleteById(id);
+        libroRepositorio.deleteById(id);
     }
 }

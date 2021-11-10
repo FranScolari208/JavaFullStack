@@ -56,13 +56,13 @@ public class AutorControlador {
     }
 
     @PostMapping("/modificar")
-    public RedirectView modificar(@RequestParam Long id, @RequestParam String nombre, @RequestParam String apellido) {
+    public RedirectView modificar(@RequestParam Long id, @RequestParam String nombre, @RequestParam String apellido) throws Exception{
         autorServicio.modificar(id, nombre, apellido);
         return new RedirectView("/autores");
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre, @RequestParam String apellido){
+    public RedirectView guardar(@RequestParam String nombre, @RequestParam String apellido) throws Exception{
         autorServicio.crearAutor(nombre, apellido);
         return new RedirectView("/autores");
     }

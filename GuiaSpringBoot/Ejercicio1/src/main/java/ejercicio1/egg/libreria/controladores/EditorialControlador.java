@@ -42,7 +42,7 @@ public class EditorialControlador {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre){
+    public RedirectView guardar(@RequestParam String nombre) throws Exception{
         editorialServicio.crearEditorial(nombre);
         return new RedirectView("/editoriales");
     }
@@ -69,7 +69,7 @@ public class EditorialControlador {
     }
 
     @PostMapping("/modificar")
-    public RedirectView modificar(@RequestParam Long id, @RequestParam String nombre) {
+    public RedirectView modificar(@RequestParam Long id, @RequestParam String nombre) throws Exception{
         editorialServicio.modificar(id, nombre);
         return new RedirectView("/editoriales");
     }

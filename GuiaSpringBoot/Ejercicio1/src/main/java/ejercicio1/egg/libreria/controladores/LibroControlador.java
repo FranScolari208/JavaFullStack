@@ -44,7 +44,7 @@ public class LibroControlador {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Integer ejemplaresPrestados, @RequestParam("autor") Long idAutor, @RequestParam("editorial") Long idEditorial){
+    public RedirectView guardar(@RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Integer ejemplaresPrestados, @RequestParam("autor") Long idAutor, @RequestParam("editorial") Long idEditorial) throws Exception{
         libroServicio.crearLibro(titulo, anio, ejemplares, ejemplaresPrestados, idAutor, idEditorial);
         return new RedirectView("/libros");
     }

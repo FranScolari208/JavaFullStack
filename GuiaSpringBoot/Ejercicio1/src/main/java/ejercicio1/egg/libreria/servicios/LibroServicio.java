@@ -6,6 +6,8 @@ import ejercicio1.egg.libreria.entidades.Libro;
 import ejercicio1.egg.libreria.repositorios.AutorRepositorio;
 import ejercicio1.egg.libreria.repositorios.EditorialRepositorio;
 import ejercicio1.egg.libreria.repositorios.LibroRepositorio;
+
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,11 @@ public class LibroServicio {
     private EditorialRepositorio editorialRepositorio;
     
     @Transactional
-    public void crearLibro(String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Long idAutor, Long idEditorial){
+    public void crearLibro(String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Long idAutor, Long idEditorial) throws Exception{
         Libro libro = new Libro();
-        
+
+        validarDatosDelLibro(titulo.toLowerCase(), anio, ejemplares, ejemplaresPrestados);
         Integer ejemplaresRestantes = ejemplares - ejemplaresPrestados;
-        
         libro.setTitulo(titulo);
         libro.setAnio(anio);
         libro.setEjemplares(ejemplares);
@@ -44,7 +46,8 @@ public class LibroServicio {
     }
     
     @Transactional
-    public void modificar(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Autor autor, Editorial editorial){
+    public void modificar(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Autor autor, Editorial editorial) throws Exception{
+        validarDatosDelLibro(titulo, anio, ejemplares, ejemplaresPrestados);
         libroRepositorio.modificar(isbn, titulo, anio, ejemplares, ejemplaresPrestados, autor,  editorial);
     }
     
@@ -62,5 +65,46 @@ public class LibroServicio {
     @Transactional
     public void eliminar(Long id){
         libroRepositorio.deleteById(id);
+    }
+
+    public void validarDatosDelLibro(String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados) throws Exception{
+
+        if(titulo == null || titulo.trim().isEmpty()){
+            throw new Exception("EL TITULO DEL LIBRO ES OBLIGATORIO");
+        }
+
+        if(libroRepositorio.buscarLibroPorTitulo(titulo) != null){
+            throw new Exception("YA EXISTE UN LIBRO CON ESE TITULO");
+        }
+
+        if(ejemplares == 0 || ejemplares == null){
+            throw new Exception("LA CANTIDAD DE EJEMPLARES NO PUEDE SER CERO");
+        }
+
+        if(ejemplares < 0 || ejemplaresPrestados < 0){
+            throw new Exception("NO SE ADMITEN EJEMPLARES NEGATIVOS");
+        }
+
+        if(ejemplaresPrestados > ejemplares){
+            throw new Exception("LA CANTIDAD DE EJEMPLARES PRESTADOS NO PUEDE SER SUPERIOR");
+        }
+
+        Calendar cal = Calendar.getInstance();
+
+        if(anio > cal.get(Calendar.YEAR)){
+            throw new Exception("EL AÑO DEL LIBRO NO PUEDE SER MAYOR AL ACTUAL");
+        }
+
+        Integer contador = 0;
+        while(anio != 0){
+            anio = anio/10;
+            contador ++;
+        }
+
+        if(contador != 4){
+            throw new Exception("EL AÑO DEBE TENER 4 CIFRAS");
+        }
+
+
     }
 }

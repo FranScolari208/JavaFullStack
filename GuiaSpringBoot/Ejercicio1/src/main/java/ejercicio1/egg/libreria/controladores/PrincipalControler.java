@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class PrincipalControler {
     
-     @GetMapping
+     @GetMapping("/home")
     public ModelAndView inicio(){
         return new ModelAndView("index");
     }

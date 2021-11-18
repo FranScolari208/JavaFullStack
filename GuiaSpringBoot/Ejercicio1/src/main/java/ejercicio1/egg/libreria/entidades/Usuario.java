@@ -11,10 +11,22 @@ public class Usuario {
     private String username;
 
     @Column(nullable = false)
+    private String nombre;
+
+    @Column(nullable = false)
+    private String apellido;
+
+    @Column(nullable = false)
+    private String correo;
+
+    @Column(nullable = false)
     private String clave;
 
-    public Usuario(String username, String clave) {
+    public Usuario(String username, String nombre, String apellido, String correo, String clave) {
         this.username = username;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
         this.clave = clave;
     }
 
@@ -29,6 +41,30 @@ public class Usuario {
         this.username = username;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     public String getClave() {
         return clave;
     }
@@ -36,8 +72,5 @@ public class Usuario {
     public void setClave(String clave) {
         this.clave = clave;
     }
-    
-    
-
 
 }

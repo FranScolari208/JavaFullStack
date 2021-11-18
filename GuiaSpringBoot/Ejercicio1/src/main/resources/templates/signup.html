@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="Ejercicio 1 Libreria" name="description"/>
+    <meta content="Franco Scolari" name="author"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario</title>
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" th:href="@{/assets/bootstrap.min.css}"/>
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/estilos.css}"/>
+</head>
+<style>
+    body{
+        background-image: url(../imagenes/fondo.jpg);
+        background-repeat: no-repeat;
+        background-size:cover;
+        width: 100%;
+        font-family: "Raizen", sans-serif;
+        background-position: 50% 50%;
+        background-size: cover;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+
+    .form-control {
+        height: 45px !important;
+    }
+
+    html, body {
+        height: 100%;
+    }
+
+</style>
+<body>
+<div class="login">
+
+    <div id="loginForm">
+        <form id="formulario" class="needs-validation mb-4" th:action="@{/registro}" th:object="${usuario}"
+              method="POST" autocomplete="off" novalidate>
+
+            <input name="lang" type="hidden" value="null">
+            <h3>Crear un usuario</h3>
+            <p>Por favor complete el formulario</p>
+
+            <div>
+                <input class="form-control" id="nombre" placeholder="Nombre" required th:field="*{nombre}" type="text" autofocus=""/>
+                <div class="invalid-feedback">El nombre es obligatorio</div>
+            </div>
+
+            <div>
+                <input class="form-control" id="apellido" placeholder="Apellido" required th:field="*{apellido}" type="text" autofocus=""/>
+                <div class="invalid-feedback">El apellido es obligatorio</div>
+            </div>
+
+            <div>
+                <input class="form-control" id="correo" placeholder="Correo" required th:field="*{correo}" type="text" autofocus=""/>
+                <div class="invalid-feedback">El correo es obligatorio</div>
+            </div>
+
+            <div>
+                <input class="form-control" id="username" placeholder="Username" required th:field="*{username}" type="text" autofocus=""/>
+                <div class="invalid-feedback">El username es obligatorio</div>
+            </div>
+
+            <div>
+                <input class="form-control" id="clave" placeholder="Clave" required th:field="*{clave}"
+                       type="password"/>
+                <div class="invalid-feedback">La cotraseña es obligatoria</div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-8">
+                    <button class="btn btn-success" th:text="${action == 'crear'} ? 'Crear Usuario' : 'Guardar cambios'"
+                            type="submit"></button>
+                </div>
+                <div class="col-xl-2">
+                    <button class="btn btn-danger" th:href = "@{/login}">Cancelar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<footer th:replace="fragmentos :: footer"></footer>
+<!-- JS -->
+<script th:src="@{/assets/bootstrap.bundle.min.js}"></script>
+<script>
+
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+</script>
+</body>
+</html>

@@ -17,18 +17,76 @@
             background-repeat: no-repeat;
             background-size:cover;
             width: 100%;
+            font-family: "Raizen", sans-serif;
+            background-position: 50% 50%;
+            background-size: cover;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        .login .btn {
+            min-width: 150px;
+            border-radius: 1px;
+            background-color: saddlebrown;
+            -webkit-box-shadow: 0px 0px 7px 0px rgb(51 51 51 / 40%);
+            box-shadow: 0px 0px 7px 0px rgb(51 51 51 / 40%);
+            color: #fff;
+            text-transform: uppercase;
         }
 
     </style>
 </head>
 <body>
+<div class="login">
 
-<form th:action = "@{/login}" method = "Post">
-    <input type = "text" placeholder = "Nombre de usuario" name = "username">
-    <input type = "password" placeholder = "Contraseña" name = "password">
-    <button type = "sumit">Login</button>
-    <h5><a th:href="@{/usuarios/crear}">Crear usuario.</a></h5>
-</form>
+    <div id="loginForm">
+        <form id="formulario" class="needs-validation mb-4" th:action="@{/logincheck}" method="POST"
+              autocomplete="off" novalidate>
+
+            <input name="lang" type="hidden" value="null">
+
+            <div class="login-logo">
+                <img th:src="@{/imagenes/logo-biblioteca.png}" alt="">
+            </div>
+
+            <h4>Ingreso al sistema</h4>
+
+            <p>Por favor ingrese su usuario y contraseña</p>
+
+            <div>
+                <input name="username" type="text" class="form-control" placeholder="Usuario" required="" autofocus="">
+                <div class="invalid-feedback">El username es obligatorio</div>
+            </div>
+
+            <div>
+                <input name="password" type="password" class="form-control" placeholder="Contraseña" required="" autocomplete="off">
+                <div class="invalid-feedback">La clave es obligatoria</div>
+            </div>
+
+            <div class="options">
+                <div style="text-align: right; clear: both;">
+                    <h6><a th:href = "@{/signup}" id="btn-registrar">Nuevo usuario</a></h6>
+                </div>
+            </div>
+            <br>
+
+            <button type="submit" class="btn">Ingresar</button>
+
+        </form>
+    </div>
+
+</div>
 
 <footer th:replace="fragmentos :: footer"></footer>
 

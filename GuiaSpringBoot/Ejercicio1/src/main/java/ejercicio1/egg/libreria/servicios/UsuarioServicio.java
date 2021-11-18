@@ -26,10 +26,13 @@ public class UsuarioServicio implements UserDetailsService {
     private final String MENSAJE = "El username ingresado no existe %s";
 
     @Transactional
-    public void crearUsuario(String username, String clave){
+    public void crearUsuario(String username, String nombre, String apellido, String correo, String clave){
         Usuario user = new Usuario();
 
         user.setUsername(username);
+        user.setNombre(nombre);
+        user.setApellido(apellido);
+        user.setCorreo(correo);
         user.setClave(encoder.encode(clave)); //Aca se encripta la clave
 
         usuarioRepositorio.save(user);

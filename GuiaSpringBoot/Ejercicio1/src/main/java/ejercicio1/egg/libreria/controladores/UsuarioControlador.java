@@ -2,36 +2,84 @@ package ejercicio1.egg.libreria.controladores;
 
 import ejercicio1.egg.libreria.entidades.Usuario;
 import ejercicio1.egg.libreria.servicios.UsuarioServicio;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Map;
 
 
 @Controller
-@RequestMapping("/usuarios")
 public class UsuarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    @GetMapping("/crear")
-    public ModelAndView crearUsuario(){
-        ModelAndView mav = new ModelAndView("ingreso-usuario");
-        mav.addObject("usuario", new Usuario());
-        mav.addObject("title", "Crear Usuario");
-        mav.addObject("action", "guardar");
+    @GetMapping("/login")
+    public ModelAndView login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, Principal principal){
+        ModelAndView mav = new ModelAndView("login");
+        if (error != null) {
+            mav.addObject("error", "CORREO O CONTRASEÑA INCORRECTO");
+        }
+        if (logout != null) {
+            mav.addObject("logout", "Sesión Finalizada");
+        }
+        if (principal != null) {
+            LOGGER.info("Principal -> {}", principal.getName());
+            mav.setViewName("redirect:/");
+        }
         return mav;
     }
 
-    @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String username, @RequestParam String clave){
-        usuarioServicio.crearUsuario(username, clave);
-        return new RedirectView("/autores");
+    @GetMapping("/signup")
+    public ModelAndView signup(HttpServletRequest request, Principal principal){
+        ModelAndView mav = new ModelAndView("signup");
+        Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+
+        if (flashMap != null) {
+            mav.addObject("exito", flashMap.get("exito"));
+            mav.addObject("error", flashMap.get("error"));
+            mav.addObject("username", flashMap.get("username"));
+            mav.addObject("nombre", flashMap.get("nombre"));
+            mav.addObject("apellido", flashMap.get("apellido"));
+            mav.addObject("correo", flashMap.get("correo"));
+            mav.addObject("clave", flashMap.get("clave"));
+        }
+        if (principal != null) {
+            LOGGER.info("Principal -> {}", principal.getName());
+            mav.setViewName("redirect:/");
+        }
+        mav.addObject("usuario", new Usuario());
+        return mav;
+    }
+
+    @PostMapping("/registro")
+    public RedirectView signup(@RequestParam String username, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String correo, @RequestParam String clave, RedirectAttributes attributes, HttpServletRequest request) {
+        RedirectView redirectView = new RedirectView("/login");
+
+        try {
+            usuarioServicio.crearUsuario(username, nombre, apellido, correo, clave);
+            attributes.addFlashAttribute("exito", "SE HA REGISTRADO CON ÉXITO.");
+            request.login(username, clave);
+            redirectView.setUrl("/login");
+
+        } catch (Exception e) {
+            attributes.addFlashAttribute("error", e.getMessage());
+            attributes.addFlashAttribute("username", username);
+            attributes.addFlashAttribute("clave", clave);
+            redirectView.setUrl("/signup");
+        }
+        return redirectView;
     }
 }

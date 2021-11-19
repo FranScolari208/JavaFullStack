@@ -51,9 +51,6 @@ public class UsuarioControlador {
             mav.addObject("exito", flashMap.get("exito"));
             mav.addObject("error", flashMap.get("error"));
             mav.addObject("username", flashMap.get("username"));
-            mav.addObject("nombre", flashMap.get("nombre"));
-            mav.addObject("apellido", flashMap.get("apellido"));
-            mav.addObject("correo", flashMap.get("correo"));
             mav.addObject("clave", flashMap.get("clave"));
         }
         if (principal != null) {

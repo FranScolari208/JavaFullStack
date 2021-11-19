@@ -40,6 +40,17 @@
     html, body {
         height: 100%;
     }
+    p{
+        margin-block-start: 1em;
+        margin-block-end: 2em;
+    }
+    #clave{
+        margin-block-end: 1em;
+    }
+
+    .mio{
+        font-size: 14px;
+    }
 
 </style>
 <body>
@@ -50,32 +61,37 @@
               method="POST" autocomplete="off" novalidate>
 
             <input name="lang" type="hidden" value="null">
-            <h3>Crear un usuario</h3>
+            <h2><bold>Crear un usuario</bold></h2>
             <p>Por favor complete el formulario</p>
 
-            <div>
+            <div class="form-floating mb-3 col-xl-14">
                 <input class="form-control" id="nombre" placeholder="Nombre" required th:field="*{nombre}" type="text" autofocus=""/>
+                <label class = "mio" for="nombre">Nombre</label>
                 <div class="invalid-feedback">El nombre es obligatorio</div>
             </div>
 
-            <div>
+            <div class="form-floating mb-3 col-xl-14">
                 <input class="form-control" id="apellido" placeholder="Apellido" required th:field="*{apellido}" type="text" autofocus=""/>
+                <label class = "mio" for="apellido">Apellido</label>
                 <div class="invalid-feedback">El apellido es obligatorio</div>
             </div>
 
-            <div>
-                <input class="form-control" id="correo" placeholder="Correo" required th:field="*{correo}" type="text" autofocus=""/>
+            <div class="form-floating mb-3 col-xl-14">
+                <input class="form-control" id="correo" placeholder="Correo" required th:field="*{correo}" type="email" autofocus=""/>
+                <label class = "mio" for="correo">Correo</label>
                 <div class="invalid-feedback">El correo es obligatorio</div>
             </div>
 
-            <div>
+            <div class="form-floating mb-3 col-xl-14">
                 <input class="form-control" id="username" placeholder="Username" required th:field="*{username}" type="text" autofocus=""/>
+                <label class = "mio" for="username">Username</label>
                 <div class="invalid-feedback">El username es obligatorio</div>
             </div>
 
-            <div>
+            <div class="form-floating mb-3 col-xl-14">
                 <input class="form-control" id="clave" placeholder="Clave" required th:field="*{clave}"
                        type="password"/>
+                <label class = "mio" for="clave">Contraseña</label>
                 <div class="invalid-feedback">La cotraseña es obligatoria</div>
             </div>
 
@@ -85,7 +101,7 @@
                             type="submit"></button>
                 </div>
                 <div class="col-xl-2">
-                    <button class="btn btn-danger" th:href = "@{/login}">Cancelar</button>
+                    <input class="btn btn-danger" type="button" value="Cancelar" onClick="history.go(-1);">
                 </div>
             </div>
 

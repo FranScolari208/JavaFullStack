@@ -44,10 +44,15 @@
             color: #fff;
             text-transform: uppercase;
         }
+        #entrada{
+            position:absolute;
+            top:0;
+        }
 
     </style>
 </head>
 <body>
+
 <div class="login">
 
     <div id="loginForm">
@@ -65,12 +70,12 @@
             <p>Por favor ingrese su usuario y contraseña</p>
 
             <div>
-                <input name="username" type="text" class="form-control" placeholder="Usuario" required="" autofocus="">
+                <input name="username" type="text" class="form-control" placeholder="Usuario" required autofocus="">
                 <div class="invalid-feedback">El username es obligatorio</div>
             </div>
 
             <div>
-                <input name="password" type="password" class="form-control" placeholder="Contraseña" required="" autocomplete="off">
+                <input name="clave" type="password" class="form-control" placeholder="Contraseña" required autocomplete="off">
                 <div class="invalid-feedback">La clave es obligatoria</div>
             </div>
 
@@ -86,6 +91,25 @@
         </form>
     </div>
 
+</div>
+
+<!-- ======= ERROR / ÉXITO ======= -->
+<div id= "entrada" th:if="${error}" class="container mt-4 text-center">
+    <div class="row col-md-4 mx-auto">
+        <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
+    </div>
+</div>
+
+<div id= "entrada" th:if="${exito}" class="container mt-4 text-center">
+    <div class="row col-md-4 mx-auto">
+        <div th:text="${exito}" class="alert alert-danger m-0 shadow"></div>
+    </div>
+</div>
+
+<div id= "entrada" th:if="${logout}" class="container mt-4 text-center">
+    <div class="row col-md-4 mx-auto">
+        <div th:text="${logout}" class="alert alert-secondary m-0 shadow" id="btn-logout"></div>
+    </div>
 </div>
 
 <footer th:replace="fragmentos :: footer"></footer>

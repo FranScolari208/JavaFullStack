@@ -1,17 +1,15 @@
 package ejercicio1.egg.libreria.controladores;
 
 import ejercicio1.egg.libreria.entidades.Autor;
+import ejercicio1.egg.libreria.entidades.Editorial;
 import ejercicio1.egg.libreria.servicios.AutorServicio;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -36,13 +34,18 @@ public class AutorControlador {
         mav.addObject("autores", autorServicio.obtenerAutores());  
         return mav;
     }
+
     
     @GetMapping("/crear")
-    public ModelAndView crearAutor(){
+    public ModelAndView crearAutor(HttpServletRequest request){
+        Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
         ModelAndView mav = new ModelAndView("ingresoAutor");
+        if(flashMap != null){
+            mav.addObject("error", flashMap.get("error"));
+        }
         mav.addObject("autor", new Autor());
         mav.addObject("title", "Crear Autor");
-        mav.addObject("action", "guardar");     
+        mav.addObject("action", "guardar");
         return mav;
     }
 
@@ -62,9 +65,16 @@ public class AutorControlador {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre, @RequestParam String apellido) throws Exception{
-        autorServicio.crearAutor(nombre, apellido);
-        return new RedirectView("/autores");
+    public RedirectView guardar(@RequestParam String nombre, @RequestParam String apellido, RedirectAttributes redirect) throws Exception{
+        RedirectView redirectView = new RedirectView("/autores");
+        try{
+            autorServicio.crearAutor(nombre, apellido);
+        }catch(Exception e){
+            redirect.addFlashAttribute("error", e.getMessage());
+            return new RedirectView("/autores/crear");
+        }
+
+        return redirectView;
     }
 
     @PostMapping("/deshabilitar/{id}")

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -33,17 +34,28 @@ public class EditorialControlador {
     }
     
     @GetMapping("/crear")
-    public ModelAndView crearEditorial(){
+    public ModelAndView crearEditorial(HttpServletRequest request){
+        Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
         ModelAndView mav = new ModelAndView("ingresoEditorial");
+        if(flashMap != null){
+            mav.addObject("error", flashMap.get("error"));
+        }
         mav.addObject("editorial", new Editorial());
         mav.addObject("title", "Crear Editorial");
         mav.addObject("action", "guardar");     
         return mav;
     }
-    
+    //TODOS LOS POST TIRAN EXCEPCIONES
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre) throws Exception{
-        editorialServicio.crearEditorial(nombre);
+    public RedirectView guardar(@RequestParam String nombre, RedirectAttributes redirect){
+
+        try{
+            editorialServicio.crearEditorial(nombre);
+        }catch(Exception e){
+            redirect.addFlashAttribute("error", e.getMessage());
+            return new RedirectView("/editoriales/crear");
+        }
+
         return new RedirectView("/editoriales");
     }
 

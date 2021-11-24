@@ -126,6 +126,11 @@ img {
     -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
+.form-select {
+    background-color: #E8F0FE !important;
+    margin: 0px 0px 5px;
+    padding: 6px 12px;
+}
 
 input.form-control {
     background-color: #E8F0FE;

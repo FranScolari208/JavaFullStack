@@ -43,21 +43,15 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/signup")
-    public ModelAndView signup(HttpServletRequest request, Principal principal){
+    public ModelAndView signup(HttpServletRequest request, @RequestParam(required = false) String exito){
         ModelAndView mav = new ModelAndView("signup");
         Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 
         if (flashMap != null) {
-            mav.addObject("exito", flashMap.get("exito"));
             mav.addObject("error", flashMap.get("error"));
-            mav.addObject("username", flashMap.get("username"));
-            mav.addObject("clave", flashMap.get("clave"));
-        }
-        if (principal != null) {
-            LOGGER.info("Principal -> {}", principal.getName());
-            mav.setViewName("redirect:/");
         }
         mav.addObject("usuario", new Usuario());
+        mav.addObject("action", "registro");
         return mav;
     }
 
@@ -68,13 +62,9 @@ public class UsuarioControlador {
         try {
             usuarioServicio.crearUsuario(username, nombre, apellido, correo, clave);
             attributes.addFlashAttribute("exito", "SE HA REGISTRADO CON ÉXITO.");
-            request.login(username, clave);
-            redirectView.setUrl("/login");
 
         } catch (Exception e) {
             attributes.addFlashAttribute("error", e.getMessage());
-            attributes.addFlashAttribute("username", username);
-            attributes.addFlashAttribute("clave", clave);
             redirectView.setUrl("/signup");
         }
         return redirectView;

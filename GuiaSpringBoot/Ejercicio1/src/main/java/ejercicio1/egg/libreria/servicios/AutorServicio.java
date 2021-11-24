@@ -19,9 +19,7 @@ public class AutorServicio {
     @Transactional
     public void crearAutor(String nombre, String apellido) throws Exception{
         Autor autor = new Autor();
-
         validarNombreDelAutor(nombre.toLowerCase(), apellido.toLowerCase());
-        
         autor.setNombre(nombre);
         autor.setApellido(apellido);
         autor.setAlta(true);
